@@ -3,14 +3,16 @@ import type { NextRequest } from "next/server";
 
 export function proxy(request: NextRequest) {
   const accessToken = request.cookies.get("access_token")?.value;
+  const refreshToken = request.cookies.get("refresh_token")?.value;
+
   const isLoginPage = request.nextUrl.pathname.startsWith("/login");
 
-  if (!accessToken && !isLoginPage) {
+  if (!accessToken && !refreshToken && !isLoginPage) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
- 
-  if (accessToken && isLoginPage) {
+
+  if ((accessToken || refreshToken) && isLoginPage) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
@@ -20,3 +22,5 @@ export function proxy(request: NextRequest) {
 export const config = {
   matcher: ["/dashboard/:path*", "/login"],
 };
+
+
