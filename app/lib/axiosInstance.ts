@@ -1,3 +1,4 @@
+
 "use server";
 
 import axios from "axios";
@@ -33,14 +34,22 @@ export const createAxiosInstance = async () => {
         const headerStore = await headers();
         const cookieHeader = headerStore.get("cookie") || "";
   
+        // const refreshRes = await fetch(
+        //   "http://localhost:3000/api/auth/refresh",
+        //   {
+        //     method: "POST",
+        //     headers: { Cookie: cookieHeader },
+        //   }
+        // );
         const refreshRes = await fetch(
-          "http://localhost:3000/api/auth/refresh",
+          `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/refresh`,
           {
             method: "POST",
-            headers: { Cookie: cookieHeader },
+            headers: {
+              Cookie: cookieHeader,
+            },
           }
         );
-  
         if (!refreshRes.ok) {
           throw new Error("Refresh failed");
         }
