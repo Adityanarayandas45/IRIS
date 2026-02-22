@@ -34,7 +34,7 @@ export const createAxiosInstance = async () => {
         const cookieHeader = headerStore.get("cookie") || "";
   
         const refreshRes = await fetch(
-          "http://localhost:3000/api/auth/refresh",
+          "https://admin.devp2.iris26.variableq.com/api/auth/refresh",
           {
             method: "POST",
             headers: { Cookie: cookieHeader },
