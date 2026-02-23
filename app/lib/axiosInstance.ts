@@ -42,7 +42,7 @@ export const createAxiosInstance = async () => {
         //   }
         // );
         const refreshRes = await fetch(
-          `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/refresh`,
+          "https://admin.devp2.iris26.variableq.com/auth/refresh/",
           {
             method: "POST",
             headers: {
