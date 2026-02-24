@@ -273,9 +273,9 @@ export default function DashboardPage() {
               {totalPages > 1 && (
                 <Stack alignItems="center" sx={{ mt: 4 }}>
                   <Pagination
-                    count={20}
+                    count={totalPages}
                     page={page}
-                    onChange={(event, value) => setPage(value)}
+                    onChange={(_, value) => setPage(value)}
                     shape="rounded"
                     size="large"
                     showFirstButton
