@@ -226,6 +226,8 @@
   border-radius: 10px;
   margin-bottom: 20px;
   color: #e2e8f0;
+  
+
 }
 
 
@@ -235,7 +237,16 @@
   border-radius: 12px;
   transition: all 0.3s ease;
   color: #cbd5e1;
+  max-height: 400px;
+  height: 100% !important;
+  overflow-y: scroll;
 }
+
+
+.rt-bootstrap-card::-webkit-scrollbar {
+  display: none;
+}
+
 
 .rt-bootstrap-card:hover {
   border-color: #3b82f6;
@@ -283,7 +294,7 @@
 
 
 
-.custom-pagination {
+/* .custom-pagination {
   gap: 8px;
 }
 
@@ -342,7 +353,7 @@
     font-size: 14px;
   }
 }
-
+ */
 
 .divider {
   border-color: #1e2f49;

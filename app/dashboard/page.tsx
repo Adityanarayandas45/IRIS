@@ -10,7 +10,11 @@ import {
 import "@/app/assests/dashboard.css";
 import axios from "axios";
 import { useCallApi } from "../lib/useCallApi";
-
+import Pagination from "@mui/material/Pagination";
+import PaginationItem from "@mui/material/PaginationItem";
+import Stack from "@mui/material/Stack";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 interface Counts {
   group_count: number;
   entity_count: number;
@@ -56,7 +60,7 @@ export default function DashboardPage() {
           )
 
         ]);
-       
+
 
 
         const countsData =
@@ -77,15 +81,15 @@ export default function DashboardPage() {
 
       } catch (error: any) {
         console.log(" DASHBOARD ERROR ");
-      
+
         if (error?.response) {
           console.log("Status:", error.response.status);
           console.log("Data:", error.response.data);
         }
-      
+
         console.log("Full error:", error);
-        
-      
+
+
       } finally {
         setRtLoading(false);
       }
@@ -185,7 +189,7 @@ export default function DashboardPage() {
         </div>
 
 
-        <div className="col-md-6 redesigned-right">
+        <div className="col-md-6  redesigned-right">
 
           <h5 className="section-title mb-3">
             Real-Time Messages
@@ -267,56 +271,37 @@ export default function DashboardPage() {
 
 
               {totalPages > 1 && (
-                <nav>
-                  <ul className="pagination justify-content-center custom-pagination">
-
-
-                    <li className={`page-item ${page === 1 ? "disabled" : ""}`}>
-                      <button
-                        className="page-link"
-                        onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-                      >
-                        Previous
-                      </button>
-                    </li>
-
-                    {(() => {
-                      const maxVisiblePages = 5;
-                      const startPage = Math.max(1, page - 2);
-                      const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-
-                      return Array.from(
-                        { length: endPage - startPage + 1 },
-                        (_, i) => startPage + i
-                      ).map((pageNum) => (
-                        <li
-                          key={pageNum}
-                          className={`page-item ${page === pageNum ? "active" : ""}`}
-                        >
-                          <button
-                            className="page-link"
-                            onClick={() => setPage(pageNum)}
-                          >
-                            {pageNum}
-                          </button>
-                        </li>
-                      ));
-                    })()}
-
-
-                    <li className={`page-item ${page === totalPages ? "disabled" : ""}`}>
-                      <button
-                        className="page-link"
-                        onClick={() =>
-                          setPage((prev) => Math.min(prev + 1, totalPages))
-                        }
-                      >
-                        Next
-                      </button>
-                    </li>
-
-                  </ul>
-                </nav>
+                <Stack alignItems="center" sx={{ mt: 4 }}>
+                  <Pagination
+                    count={20}
+                    page={page}
+                    onChange={(event, value) => setPage(value)}
+                    shape="rounded"
+                    size="large"
+                    showFirstButton
+                    showLastButton
+                  
+                    sx={{
+                      "& .MuiPaginationItem-root": {
+                        color: "white",
+                        borderColor: "white",
+                      },
+                      "& .Mui-selected": {
+                        backgroundColor: "white",
+                        color: "white",
+                      },
+                    }}
+                    renderItem={(item) => (
+                      <PaginationItem
+                        slots={{
+                          previous: ArrowBackIcon,
+                          next: ArrowForwardIcon,
+                        }}
+                        {...item}
+                      />
+                    )}
+                  />
+                </Stack>
               )}
             </>
           )}
